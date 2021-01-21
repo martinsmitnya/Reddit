@@ -20,7 +20,6 @@ conn.connect((err) => {
   console.log('Succesfully Connected To - redditclone - DataBase');
 });
 
-//DataBase redditclone CONNECTED and is ready to serve data! 
 
 
 app.get('/', (req, res) => {
@@ -129,7 +128,7 @@ app.delete('/posts/:id', (req, res) => {
 })
 
 
-
-app.listen(5000, () => {
+let port_number = server.listen(process.env.PORT || 5000);
+app.listen(port_number, () => {
   console.log('Server is ONLINE at 5000');
 })
