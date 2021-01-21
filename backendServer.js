@@ -128,7 +128,7 @@ app.delete('/posts/:id', (req, res) => {
 })
 
 
-let port_number = process.listen(process.env.PORT || 5000);
+let port_number = app.listen(process.env.PORT || 5000);
 app.listen(port_number, () => {
   console.log('Server is ONLINE at 5000');
 })
