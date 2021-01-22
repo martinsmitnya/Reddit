@@ -7,6 +7,9 @@ app.use(express.static('public'));
 require('dotenv').config()
 ////////////////////////////////////////////////////////////////
 
+// Ne a rows adjuk issza hner rednesen returnoljün egy normális SELECT query-t 
+// A vizsán booksoter-hoz hasonló feladat lesz KeyboardEvent, egy kis frontedel (nocss)
+
 const conn = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -62,7 +65,20 @@ app.post('/posts', (req, res) => {
       res.status(500).json({ error: 'Database error occured' });
       return
     } else {
-      res.status(200).json(rows);
+      
+      conn.query(`SELECT * FROM posts_table ORDER BY id DESC LIMIT 1;`, (err, rows) => {
+        if (err) {
+          res.status(500).json({ error: 'Database error occured' });
+          return
+        }
+        else if (rows[0] === undefined) {
+          res.status(404).json({ error: `Post with given ID does not exists` });
+        }
+        else {
+          res.status(200).json(rows);
+        }
+      })
+
     }
   });
 });
@@ -76,7 +92,20 @@ app.put('/posts/:id', (req, res) => {
     } else if (rows.affectedRows === 0) {
       res.status(404).json({ error: `Post with given ID does not exists` });
     } else {
-      res.status(200).json(rows);
+
+      conn.query(`SELECT * FROM posts_table WHERE id = (?);`,[req.params.id], (err, rows) => {
+        if (err) {
+          res.status(500).json({ error: 'Database error occured' });
+          return
+        }
+        else if (rows[0] === undefined) {
+          res.status(404).json({ error: `Post with given ID does not exists` });
+        }
+        else {
+          res.status(200).json(rows);
+        }
+      })
+
     }
   });
 });
@@ -92,7 +121,20 @@ app.put('/posts/:id/upvote', (req, res) => {
     } else if (rows.affectedRows === 0) {
       res.status(404).json({ error: `Post with given ID does not exists` });
     } else {
-      res.status(200).json(rows);
+
+      conn.query(`SELECT * FROM posts_table WHERE id = (?);`,[req.params.id], (err, rows) => {
+        if (err) {
+          res.status(500).json({ error: 'Database error occured' });
+          return
+        }
+        else if (rows[0] === undefined) {
+          res.status(404).json({ error: `Post with given ID does not exists` });
+        }
+        else {
+          res.status(200).json(rows);
+        }
+      })
+
     }
   });
 });
@@ -106,14 +148,28 @@ app.put('/posts/:id/downvote', (req, res) => {
     } else if (rows.affectedRows === 0) {
       res.status(404).json({ error: `Post with given ID does not exists` });
     } else {
-      res.status(200).json(rows);
+
+      conn.query(`SELECT * FROM posts_table WHERE id = (?);`,[req.params.id], (err, rows) => {
+        if (err) {
+          res.status(500).json({ error: 'Database error occured' });
+          return
+        }
+        else if (rows[0] === undefined) {
+          res.status(404).json({ error: `Post with given ID does not exists` });
+        }
+        else {
+          res.status(200).json(rows);
+        }
+      })
+
     }
+
   });
 });
 
-//DELETE, just needs an ID in URL
+//DELETE(PUT), just needs an ID in URL
 app.delete('/posts/:id', (req, res) => {
-  conn.query(`DELETE FROM posts_table WHERE id = ?;`, [req.params.id], (err, rows) => {
+  conn.query(`UPDATE posts_table SET activity = 0 WHERE id = (?);`, [req.params.id], (err, rows) => {
     if (err) {
       res.status(500).json({ error: 'Database error occured' });
       return
@@ -122,7 +178,20 @@ app.delete('/posts/:id', (req, res) => {
       res.status(404).json({ error: `Post with given ID does not exists` });
     }
     else {
-      res.status(200).json(rows);
+
+      conn.query(`SELECT * FROM posts_table WHERE id = (?);`,[req.params.id], (err, rows) => {
+        if (err) {
+          res.status(500).json({ error: 'Database error occured' });
+          return
+        }
+        else if (rows[0] === undefined) {
+          res.status(404).json({ error: `Post with given ID does not exists` });
+        }
+        else {
+          res.status(200).json(rows);
+        }
+      })
+
     }
   })
 })

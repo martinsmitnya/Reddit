@@ -4,6 +4,7 @@ CREATE TABLE posts_table (
   url VARCHAR(256) NOT NULL,
   timestamp INT NOT NULL,
   score INT DEFAULT 0 NOT NULL,
+  activity INT  DEFAULT 0 NOT NULL,
   PRIMARY KEY(id)
 );
 
@@ -16,4 +17,5 @@ CREATE TABLE posts_table (
 -- | url       | varchar(256) | NO   |     | NULL    |                |
 -- | timestamp | int          | NO   |     | NULL    |                |
 -- | score     | int          | NO   |     | 0       |                |
--- +-----------+--------------+------+-----+---------+-----------------
+-- | activity  | int          | NO   |     | 1       |                |
+-- +-----------+--------------+------+-----+---------+----------------+
