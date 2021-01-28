@@ -1,0 +1,61 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.banner{
+  background-image: url("/space.png");
+  width: 100%;
+  height: 200px;
+}
+
+.mainWrapper {
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+
+.main {
+  border: 3px solid red;
+  padding: 20px;
+}
+
+.post{
+  border: 1px solid yellow;
+  display: flex;
+  width: 100%;
+}
+
+.scoreingBox {
+  border: 1px solid red;
+}
+.mainContet {
+  border: 1px solid blue;
+  width: 100%;
+}
+
+
+
+.side {
+  border: 1px solid blue;
+  padding: 10px;
+}
+
+.submitButton {
+  width: 100%;
+}
+
+.tag {
+  border: 1px solid yellow;
+}
+
+.detail {
+  border: 1px solid green;
+  padding: 10px;
+}
+
+.sideList {
+  background: red;
+  list-style-type: none;
+  padding: 10px;
+}
