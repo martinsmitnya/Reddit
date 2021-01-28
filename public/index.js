@@ -11,6 +11,7 @@ function insertPost(id, title, url, timestamp, score, activity) {
   //Post elements start here      Post elements start here      Post elements start here
   let post = document.createElement('div');
   post.setAttribute('class', 'post');
+  post.setAttribute('id', `${id}`);
   listItem.appendChild(post);
 
   let scoreingBox = document.createElement('div');
@@ -29,7 +30,7 @@ function insertPost(id, title, url, timestamp, score, activity) {
       headers: { 'Content-Type': 'application/json' },
       //body: JSON.stringify() up/downvote is special and has no body!
     });
-    console.log(`Upvoted${id}`);
+    console.log(`Upvoted ${id}`);
   });
   //CLICK VOTE
 
@@ -125,3 +126,29 @@ fetch(`http://localhost:3000/posts`)
     }
   }
 );
+
+
+//OUTSIDE EVENT LISTENER TRYING TO BE IMPLEMENTED
+//It adds the element on the end of the list, but we need replacement instead
+function loadButtonEventListeners() {
+  let buttons = document.querySelectorAll('.upVoteButton')
+  let posts = document.querySelectorAll('.post')
+
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', ()=> {
+      fetch(`/posts/${posts[i].id}/upvote`, {
+        method: 'put',
+        headers: { 'Content-Type': 'application/json' },
+        //body: JSON.stringify() up/downvote is special and has no body!
+      });
+
+      //It adds the element on the end of the list, but we need replacement instead
+      fetchPost(posts[i].id);
+      console.log(`/posts/${posts[i].id}/upvote or ${buttons[i].id}`);
+      //DEBUG
+      
+    });
+  }
+
+}
+setTimeout(function(){ loadButtonEventListeners(); }, 2000);
