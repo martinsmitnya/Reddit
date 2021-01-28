@@ -7,8 +7,6 @@ app.use(express.static('public'));
 require('dotenv').config()
 ////////////////////////////////////////////////////////////////
 
-// Ne a rows adjuk issza hner rednesen returnoljün egy normális SELECT query-t 
-// A vizsán booksoter-hoz hasonló feladat lesz KeyboardEvent, egy kis frontedel (nocss)
 
 const conn = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -25,7 +23,7 @@ conn.connect((err) => {
 
 
 
-app.get('/', (req, res) => {
+app.get('/main', (req, res) => {
   res.send('MAIN PAGE CONNECTED');
 })
 
@@ -197,7 +195,7 @@ app.delete('/posts/:id', (req, res) => {
 })
 
 
-let port_number = app.listen(process.env.PORT || 5000);
+let port_number = app.listen(process.env.PORT || 3000);
 app.listen(port_number, () => {
-  console.log('Server is ONLINE at 5000');
+  console.log('Server is ONLINE at 3000');
 })

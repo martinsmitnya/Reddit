@@ -11,24 +11,29 @@
 </head>
 
 <body>
-  <div class="banner"></div>
+  <div class="banner"><img  class="bannerImage" src="./assets/space.png" alt=""></div>
   <div class="mainWrapper">
 
     <div class="main">
       <ul class='mainList'>
         <li>
-          <!-- Post score, content -->
+          <!-- Post score and content -->
           <div class="post">
             <div class="scoreingBox">
-              <p>arrows and shit</p>
+              <!-- IMG, score, img -->
+              <button class="upVoteButton voteButton"><img src="./assets/arrows/upvote.png" alt=""></button>
+              <p class="scoreValue">0</p>
+              <button class="downVoteButton voteButton"><img src="./assets/arrows/downvote.png" alt=""></button>
               <!-- IMG, score, img -->
             </div>
             <div class="mainContet">
               <h3 class="postTitle"> Title</h3>
-              <p>post details</p>
+              <p>Submitted: </p>
+              <a href="/endpoint1"> Delete post</a>
+              <a href="/endpoint2"> Edit Post</a>
             </div>
           </div>
-          <!-- Post score, content -->
+          <!-- Post score and content -->
         </li>
       </ul>
 
@@ -53,8 +58,9 @@
       </div>
     </div>
 
-    
+
   </div>
+  <script src="./index.js"></script>
 </body>
 
 </html>

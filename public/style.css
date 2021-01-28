@@ -1,12 +1,14 @@
 * {
   margin: 0px;
   padding: 0px;
+  font-family: 'Lato', sans-serif;
 }
 
-.banner{
-  background-image: url("/space.png");
+.bannerImage{
+  /* background-image: url("./assets/space.png"); */
   width: 100%;
   height: 200px;
+  object-fit:cover;
 }
 
 .mainWrapper {
@@ -28,7 +30,14 @@
 
 .scoreingBox {
   border: 1px solid red;
+  padding: 10px;
 }
+
+.scoreValue {
+  text-align: center;
+}
+
+
 .mainContet {
   border: 1px solid blue;
   width: 100%;
