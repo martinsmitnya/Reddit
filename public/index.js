@@ -1,6 +1,6 @@
 
 
-
+//In this main page I need to figure out a way to live update post at the addEventListener
 
 //It creates and inserts a post.
 function insertPost(id, title, url, timestamp, score, activity) {
@@ -123,28 +123,5 @@ fetch(`http://localhost:3000/posts`)
     for (let i = 0; i < results.length; i++) {
       fetchPost(results[i].id);
     }
-  })
-  
-  
-  
-  
-  
- 
-
-
-//Add upvote/Downvote, just need to figure out a way to query selector the proper items.
-function toUpvote(id) {
-  fetch(`/posts/${id}/upvote`, {
-    method: 'put',
-    headers: { 'Content-Type': 'application/json' },
-    //body: JSON.stringify() up/downvote is special and has no body!
-  })
-}
-function toDownvote(id) {
-  fetch(`/posts/${id}/downvote`, {
-    method: 'put',
-    headers: { 'Content-Type': 'application/json' },
-    //body: JSON.stringify() up/downvote is special and has no body!
-  })
-  console.log('UPVOTED');
-}
+  }
+);
