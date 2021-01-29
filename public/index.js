@@ -1,6 +1,5 @@
 
 
-//In this main page I need to figure out a way to live update post at the addEventListener
 
 //It creates and inserts a post.
 function insertPost(id, title, url, timestamp, score, activity) {
@@ -22,18 +21,6 @@ function insertPost(id, title, url, timestamp, score, activity) {
   let upVoteButton = document.createElement('button');
   upVoteButton.setAttribute('class', 'upVoteButton voteButton');
   upVoteButton.setAttribute('id', `upVoteButton${id}`);
-
-  //CLICK VOTE
-  upVoteButton.addEventListener('click', ()=> {
-    fetch(`/posts/${id}/upvote`, {
-      method: 'put',
-      headers: { 'Content-Type': 'application/json' },
-      //body: JSON.stringify() up/downvote is special and has no body!
-    });
-    console.log(`Upvoted ${id}`);
-  });
-  //CLICK VOTE
-
   scoreingBox.appendChild(upVoteButton);
 
   let upvoteImage = document.createElement('img');
@@ -49,17 +36,6 @@ function insertPost(id, title, url, timestamp, score, activity) {
   //DownVoteBtn
   let downVoteButton = document.createElement('button');
   downVoteButton.setAttribute('class', 'downVoteButton voteButton');
-
-  //CLICK VOTE
-  downVoteButton.addEventListener('click', ()=> {
-    fetch(`/posts/${id}/downvote`, {
-      method: 'put',
-      headers: { 'Content-Type': 'application/json' },
-      //body: JSON.stringify() up/downvote is special and has no body!
-    });
-    console.log(`Downvoted${id}`)});
-  //CLICK VOTE
-
   scoreingBox.appendChild(downVoteButton);
 
   let downvoteImage = document.createElement('img');
@@ -127,27 +103,43 @@ fetch(`http://localhost:3000/posts`)
   }
 );
 
+
 function loadButtonEventListeners() {
-  let buttons = document.querySelectorAll('.upVoteButton')
+  let upVoteButtons = document.querySelectorAll('.upVoteButton')
+  let downVoteButtons = document.querySelectorAll('.downVoteButton')
   let posts = document.querySelectorAll('.post')
   let scoreValue = document.querySelectorAll('.scoreValue')
 
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', ()=> {
+  for (let i = 0; i < posts.length; i++) {
+    downVoteButtons[i].addEventListener('click', () => {
+
       //Send data to database
-      fetch(`/posts/${posts[i].id}/upvote`, {
+      fetch(`/posts/${posts[i].id}/downvote`, {
         method: 'put',
         headers: { 'Content-Type': 'application/json' },
-        //body: JSON.stringify() up/downvote is special and has no body!
+        //body: - //
       });
 
       //Get the data and update the innerHTML
       fetch(`/posts/${posts[i].id}`)
-      .then(response => response.json() )
-      .then(data => scoreValue[i].innerHTML = data[0].score);
-      
+        .then(response => response.json())
+        .then(data => scoreValue[i].innerHTML = data[0].score);
     });
-  }
 
+    upVoteButtons[i].addEventListener('click', () => {
+      //Send data to database
+      fetch(`/posts/${posts[i].id}/upvote`, {
+        method: 'put',
+        headers: { 'Content-Type': 'application/json' },
+        //body: - //
+      });
+
+      //Get the data and update the innerHTML
+      fetch(`/posts/${posts[i].id}`)
+        .then(response => response.json())
+        .then(data => scoreValue[i].innerHTML = data[0].score);
+    });
+
+  }
 }
-setTimeout(function(){ loadButtonEventListeners(); }, 2000);
+setTimeout(function () { loadButtonEventListeners(); }, 2000);
